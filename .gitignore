@@ -6,6 +6,9 @@ build/
 !**/src/test/**/build/
 .DS_Store
 
+### Querydsl
+/src/main/generated
+
 ### STS ###
 .apt_generated
 .classpath
