@@ -11,7 +11,7 @@ import java.util.Set;
 
 // @EqualsAndHashCode 을 쓰면 모든 컬럼들을 다 검사하기 때문에 비효율적. 그러므로 아래와 같이 인텔리제이에서 따로 생성.
 @Getter
-@ToString
+@ToString(callSuper = true) // 안쪽까지 tostring 찍어내기 위함. 즉, userAccount + auditing fields까지.
 @Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
@@ -25,6 +25,10 @@ public class Article extends AuditingFields{
     private Long id;
 
     @Setter
+    @ManyToOne(optional = false) // 객체에 null 이 들어갈수도. 회원탈퇴한 사람.
+    private UserAccount userAccount;
+
+    @Setter
     @Column(nullable = false)
     private String title; // 제목
 
@@ -35,7 +39,7 @@ public class Article extends AuditingFields{
     @Setter
     private String hashtag; // 해시태그
 
-    @OrderBy("id")
+    @OrderBy("createdAt DESC")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL) // 게시글이 삭제되면 댓글이 모두 삭제되게끔.
     @ToString.Exclude
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
@@ -43,14 +47,15 @@ public class Article extends AuditingFields{
     protected Article() {
     }
 
-    private Article(String title, String content, String hashtag) {
+    private Article(UserAccount userAccount, String title, String content, String hashtag) {
+        this.userAccount = userAccount;
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
     }
 
-    public static Article of(String title, String content, String hashtag) {
-        return new Article(title, content, hashtag);
+    public static Article of(UserAccount userAccount, String title, String content, String hashtag) {
+        return new Article(userAccount, title, content, hashtag);
     }
 
     // id 컬럼만 비교하여 equals and hashcode 생성. (효율적)
