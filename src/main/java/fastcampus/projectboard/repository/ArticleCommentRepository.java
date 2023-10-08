@@ -18,7 +18,7 @@ public interface ArticleCommentRepository extends
         QuerydslPredicateExecutor<ArticleComment>,
         QuerydslBinderCustomizer<QArticleComment> {
 
-    List<ArticleComment> findByArticle_Id(Long articleId);
+    List<ArticleComment> findByArticle_Id(Long articleId); // article의 id를 이용해서 articleComment을 가져올때. Article_Id 언더바를 사용.
     @Override
     default void customize(QuerydslBindings bindings, QArticleComment root){
         bindings.excludeUnlistedProperties(true);
