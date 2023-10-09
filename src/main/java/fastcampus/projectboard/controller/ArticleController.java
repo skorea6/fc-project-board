@@ -36,8 +36,8 @@ public class ArticleController {
     @GetMapping("/{articleId}")
     public String articles(@PathVariable Long articleId, ModelMap map) {
         ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticle(articleId));
-        map.addAttribute("article", article);
-        map.addAttribute("articleComments", article.articleCommentsResponse());
+        map.addAttribute("article", article); // sql 1번
+        map.addAttribute("articleComments", article.articleCommentsResponse()); // sql 1번 (지연로딩 특징)
         return "articles/detail";
     }
 }

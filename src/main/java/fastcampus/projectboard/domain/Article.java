@@ -25,7 +25,7 @@ public class Article extends AuditingFields{
     private Long id;
 
     @Setter
-    @ManyToOne(optional = false) // 객체에 null 이 들어갈수도. 회원탈퇴한 사람.
+    @ManyToOne(optional = false) // 객체에 null 이 들어갈수도. 회원탈퇴한 사람. ManyToOne은 기본이 즉시로딩. eager loading
     private UserAccount userAccount;
 
     @Setter
@@ -40,7 +40,7 @@ public class Article extends AuditingFields{
     private String hashtag; // 해시태그
 
     @OrderBy("createdAt DESC")
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL) // 게시글이 삭제되면 댓글이 모두 삭제되게끔.
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL) // 게시글이 삭제되면 댓글이 모두 삭제되게끔. OneToMany는 기본이 지연로딩. lazy loading
     @ToString.Exclude
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
