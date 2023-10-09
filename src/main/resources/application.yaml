@@ -20,6 +20,7 @@ spring:
     properties:
       hibernate.format_sql: true
       hibernate.default_batch_fetch_size: 100
+    open-in-view: false # service, repository (transaction 범위)에서만 영속상태. (controller, view 는 준영속 상태)
   sql.init.mode: always
   data.rest:
     base-path: /api
