@@ -1,4 +1,4 @@
-package fastcampus.projectboard.response;
+package fastcampus.projectboard.dto.response;
 
 import fastcampus.projectboard.dto.ArticleWithCommentsDto;
 
@@ -7,7 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public record ArticleWithCommentResponse(
+public record ArticleWithCommentsResponse(
         Long id,
         String title,
         String content,
@@ -15,19 +15,19 @@ public record ArticleWithCommentResponse(
         LocalDateTime createdAt,
         String email,
         String nickname,
-        Set<ArticleCommentResponse> articleCommentResponses
+        Set<ArticleCommentResponse> articleCommentsResponse
 ) {
-    public static ArticleWithCommentResponse of(Long id, String title, String content, String hashtag, LocalDateTime createdAt, String email, String nickname, Set<ArticleCommentResponse> articleCommentResponses) {
-        return new ArticleWithCommentResponse(id, title, content, hashtag, createdAt, email, nickname, articleCommentResponses);
+    public static ArticleWithCommentsResponse of(Long id, String title, String content, String hashtag, LocalDateTime createdAt, String email, String nickname, Set<ArticleCommentResponse> articleCommentResponses) {
+        return new ArticleWithCommentsResponse(id, title, content, hashtag, createdAt, email, nickname, articleCommentResponses);
     }
 
-    public static ArticleWithCommentResponse from(ArticleWithCommentsDto dto) {
+    public static ArticleWithCommentsResponse from(ArticleWithCommentsDto dto) {
         String nickname = dto.userAccountDto().nickname();
         if (nickname == null || nickname.isBlank()) {
             nickname = dto.userAccountDto().userId();
         }
 
-        return new ArticleWithCommentResponse(
+        return new ArticleWithCommentsResponse(
                 dto.id(),
                 dto.title(),
                 dto.content(),
