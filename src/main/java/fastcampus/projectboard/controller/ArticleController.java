@@ -47,6 +47,7 @@ public class ArticleController {
         ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticle(articleId));
         map.addAttribute("article", article); // sql 1번
         map.addAttribute("articleComments", article.articleCommentsResponse()); // sql 1번 (지연로딩 특징)
+        map.addAttribute("totalCount", articleService.getArticleCount());
         return "articles/detail";
     }
 }
