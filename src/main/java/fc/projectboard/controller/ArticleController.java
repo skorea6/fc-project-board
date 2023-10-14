@@ -82,7 +82,7 @@ public class ArticleController {
     public String postNewArticle(ArticleRequest articleRequest) {
         // TODO : 인증정보 넣기
         articleService.saveArticle(articleRequest.toDto(UserAccountDto.of(
-                "uno", "asdf1234", "uno@mail.com", "Uno", "memo", null, null, null, null
+                "uno", "asdf1234", "uno@mail.com", "Uno", "memo"
         )));
         return "redirect:/articles";
     }
@@ -100,7 +100,7 @@ public class ArticleController {
     @PostMapping("/{articleId}/form")
     public String updateArticle(@PathVariable Long articleId, ArticleRequest articleRequest) {
         articleService.updateArticle(articleId, articleRequest.toDto(UserAccountDto.of(
-                "uno", "asdf1234", "uno@mail.com", "Uno", "memo", null, null, null, null
+                "uno", "asdf1234", "uno@mail.com", "Uno", "memo"
         )));
 
         return "redirect:/articles/" + articleId;
