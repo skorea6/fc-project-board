@@ -26,6 +26,7 @@ public class Article extends AuditingFields{
 
     @Setter
     @ManyToOne(optional = false) // 객체에 null 이 들어갈수도. 회원탈퇴한 사람. ManyToOne은 기본이 즉시로딩. eager loading
+    @JoinColumn(name = "userId")
     private UserAccount userAccount;
 
     @Setter
