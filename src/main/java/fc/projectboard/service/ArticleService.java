@@ -65,7 +65,6 @@ public class ArticleService {
         try {
             Article article = articleRepository.getReferenceById(articleId);
             UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().userId());
-
             if(article.getUserAccount().equals(userAccount)) {
                 if (dto.title() != null) {
                     article.setTitle(dto.title());
