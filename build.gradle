@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.fastcampus'
-version = 'v1.1'
+version = '0.0.1-SNAPSHOT'
 
 java {
     sourceCompatibility = '17'
@@ -68,11 +68,4 @@ sourceSets {
 // gradle clean 시에 QClass 디렉토리 삭제
 clean {
     delete file(generated)
-}
-
-// Heroku 설정
-jar {
-    manifest {
-        attributes('Main-Class': 'fc.projectboard.FcProjectBoardApplication')
-    }
 }
