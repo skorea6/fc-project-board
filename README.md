@@ -36,6 +36,7 @@ Spring Boot
 ## 데모 페이지
 
 * https://project-board-skorea6-2a8a8f2683b0.herokuapp.com/
+* 아이디: uno, 비번: asdf1234
 
 ## 질문, 건의
 
