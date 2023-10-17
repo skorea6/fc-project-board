@@ -45,4 +45,8 @@ spring:
     url: ${CLEARDB_DATABASE_URL}
   jpa.hibernate.ddl-auto: create
   sql.init.mode: always
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+
 
