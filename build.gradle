@@ -30,6 +30,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security' // 스프링 시큐리티 추가
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6' // 스프링 시큐리티 추가
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5' // 설정파일 암호화, 복호화
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
     compileOnly 'org.projectlombok:lombok'
