@@ -66,11 +66,11 @@ public class Article extends AuditingFields{
         if (!(o instanceof Article that)) return false;
         // [중요] 영속화 되기 전에는 id가 null일 것이다.(영속화 후 id가 넣어지므로) 그러므로 둘이 같은지 비교할때는 null이 아닐때에만 비교해야한다.
         // id가 null이 아닌지 체크 필요.
-        return id != null && id.equals(that.getId()); // 그냥 id가 아니라 getId로 조회 필요
+        return this.getId() != null && this.getId().equals(that.getId()); // 그냥 id가 아니라 getId로 조회 필요
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(this.getId());
     }
 }
