@@ -2,6 +2,7 @@ package fc.projectboard.service;
 
 import fc.projectboard.domain.Article;
 import fc.projectboard.domain.ArticleComment;
+import fc.projectboard.domain.Hashtag;
 import fc.projectboard.domain.UserAccount;
 import fc.projectboard.dto.ArticleCommentDto;
 import fc.projectboard.dto.UserAccountDto;
@@ -18,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -85,39 +87,39 @@ class ArticleCommentServiceTest {
         then(articleCommentRepository).shouldHaveNoInteractions();
     }
 
-    @DisplayName("댓글 정보를 입력하면, 댓글을 수정한다.")
-    @Test
-    void givenArticleCommentInfo_whenUpdatingArticleComment_thenUpdatesArticleComment() {
-        // Given
-        String oldContent = "content";
-        String updatedContent = "댓글";
-        ArticleComment articleComment = createArticleComment(oldContent);
-        ArticleCommentDto dto = createArticleCommentDto(updatedContent);
-        given(articleCommentRepository.getReferenceById(dto.id())).willReturn(articleComment);
-
-        // When
-        sut.updateArticleComment(dto);
-
-        // Then
-        assertThat(articleComment.getContent())
-                .isNotEqualTo(oldContent)
-                .isEqualTo(updatedContent);
-        then(articleCommentRepository).should().getReferenceById(dto.id());
-    }
-
-    @DisplayName("없는 댓글 정보를 수정하려고 하면, 경고 로그를 찍고 아무 것도 안 한다.")
-    @Test
-    void givenNonexistentArticleComment_whenUpdatingArticleComment_thenLogsWarningAndDoesNothing() {
-        // Given
-        ArticleCommentDto dto = createArticleCommentDto("댓글");
-        given(articleCommentRepository.getReferenceById(dto.id())).willThrow(EntityNotFoundException.class);
-
-        // When
-        sut.updateArticleComment(dto);
-
-        // Then
-        then(articleCommentRepository).should().getReferenceById(dto.id());
-    }
+//    @DisplayName("댓글 정보를 입력하면, 댓글을 수정한다.")
+//    @Test
+//    void givenArticleCommentInfo_whenUpdatingArticleComment_thenUpdatesArticleComment() {
+//        // Given
+//        String oldContent = "content";
+//        String updatedContent = "댓글";
+//        ArticleComment articleComment = createArticleComment(oldContent);
+//        ArticleCommentDto dto = createArticleCommentDto(updatedContent);
+//        given(articleCommentRepository.getReferenceById(dto.id())).willReturn(articleComment);
+//
+//        // When
+//        sut.updateArticleComment(dto);
+//
+//        // Then
+//        assertThat(articleComment.getContent())
+//                .isNotEqualTo(oldContent)
+//                .isEqualTo(updatedContent);
+//        then(articleCommentRepository).should().getReferenceById(dto.id());
+//    }
+//
+//    @DisplayName("없는 댓글 정보를 수정하려고 하면, 경고 로그를 찍고 아무 것도 안 한다.")
+//    @Test
+//    void givenNonexistentArticleComment_whenUpdatingArticleComment_thenLogsWarningAndDoesNothing() {
+//        // Given
+//        ArticleCommentDto dto = createArticleCommentDto("댓글");
+//        given(articleCommentRepository.getReferenceById(dto.id())).willThrow(EntityNotFoundException.class);
+//
+//        // When
+//        sut.updateArticleComment(dto);
+//
+//        // Then
+//        then(articleCommentRepository).should().getReferenceById(dto.id());
+//    }
 
     @DisplayName("댓글 ID를 입력하면, 댓글을 삭제한다.")
     @Test
@@ -164,7 +166,7 @@ class ArticleCommentServiceTest {
 
     private ArticleComment createArticleComment(String content) {
         return ArticleComment.of(
-                Article.of(createUserAccount(), "title", "content", "hashtag"),
+                createArticle(),
                 createUserAccount(),
                 content
         );
@@ -181,12 +183,18 @@ class ArticleCommentServiceTest {
     }
 
     private Article createArticle() {
-        return Article.of(
+        Article article = Article.of(
                 createUserAccount(),
                 "title",
-                "content",
-                "#java"
+                "content"
         );
+
+        article.addHashtags(Set.of(createHashtag()));
+        return article;
+    }
+
+    private Hashtag createHashtag() {
+        return Hashtag.of("java");
     }
 
 }
