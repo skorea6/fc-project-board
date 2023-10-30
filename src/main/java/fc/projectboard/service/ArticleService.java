@@ -134,7 +134,7 @@ public class ArticleService {
 
     @Transactional(readOnly = true)
     public List<String> getHashtags() {
-        return hashtagRepository.findAllHashtagNames();
+        return hashtagRepository.findAllHashtagNames(); // TODO : 해시태그 서비스로 구성해보기.
     }
 
     private Set<Hashtag> renewHashtagsFromContent(String content) {
