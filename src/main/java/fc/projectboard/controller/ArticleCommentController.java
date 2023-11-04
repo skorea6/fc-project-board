@@ -24,6 +24,7 @@ public class ArticleCommentController {
             @AuthenticationPrincipal BoardPrincipal boardPrincipal
     ) {
         articleCommentService.saveArticleComment(articleRequest.toDto(boardPrincipal.toDto()));
+
         return "redirect:/articles/" + articleRequest.articleId();
     }
 
