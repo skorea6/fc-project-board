@@ -1,10 +1,7 @@
 package fc.projectboard.controller;
 
-import fc.projectboard.domain.Article;
 import fc.projectboard.domain.constant.FormStatus;
 import fc.projectboard.domain.constant.SearchType;
-import fc.projectboard.dto.ArticleDto;
-import fc.projectboard.dto.UserAccountDto;
 import fc.projectboard.dto.request.ArticleRequest;
 import fc.projectboard.dto.response.ArticleResponse;
 import fc.projectboard.dto.response.ArticleWithCommentsResponse;
