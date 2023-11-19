@@ -12,6 +12,12 @@ jasypt:
     bean: jasyptEncryptorAES
 
 spring:
+  application.name: fc-board
+  cloud.vault:
+    scheme: http
+    authentication: TOKEN
+    token: ${VAULT_TOKEN}
+  config.import: vault://
   datasource:
     url: jdbc:mysql://localhost:3306/board
     username: skorea6
