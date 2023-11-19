@@ -10,7 +10,7 @@
 * Intellij IDEA Ultimate 2023
 * Java 17
 * Gradle 7.4.1
-* Spring Boot 2.7.0
+* Spring Boot 3.1.4
 
 ## 기술 세부 스택
 
