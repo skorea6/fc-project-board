@@ -36,7 +36,7 @@ spring:
       client:
         registration:
           kakao:
-            client-id: ${KAKAO_OAUTH_CLIENT_ID}
+            client-id: ${KAKAO_OAUTH_CLIENT_ID} # 환경변수 등록 
             client-secret: ${KAKAO_OAUTH_CLIENT_SECRET}
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/kakao"
