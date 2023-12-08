@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -18,6 +20,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import java.util.Map;
@@ -26,9 +29,15 @@ import java.util.stream.Stream;
 
 import static fc.projectboard.config.OAuth2Config.OAuth2ManageKakao;
 import static fc.projectboard.config.OAuth2Config.OAuth2ManageNaver;
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 @Configuration
 public class SecurityConfig {
+
+    private static final String[] requestPermitStaticUrl = new String[]{
+            "/css/**",
+            "/images/**"
+    };
 
     private static final String[] requestPermitAllUrl = new String[]{
             "/",
@@ -40,7 +49,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService, HandlerMappingIntrospector introspector) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers(
+                                Stream.of(requestPermitStaticUrl)
+                                        .map(AntPathRequestMatcher::antMatcher)
+                                        .toArray(AntPathRequestMatcher[]::new)
+                        ).permitAll()
                         .requestMatchers(
                                 Stream.of(requestPermitAllUrl)
                                         .map(new MvcRequestMatcher.Builder(introspector)::pattern)
