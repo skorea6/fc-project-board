@@ -67,6 +67,15 @@ public class SecurityConfig {
     }
 
     // /user/me 꺼내는 과정. 자기 자신에 대한 rest-api 정보
+    /**
+     * <p>
+     * OAuth 2.0 기술을 이용한 인증 정보를 처리한다.
+     * 카카오/네이버 인증 방식을 선택.
+     *
+     * @param userAccountService  게시판 서비스의 사용자 계정을 다루는 서비스 로직
+     * @param passwordEncoder 패스워드 암호화 도구
+     * @return {@link OAuth2UserService} OAuth2 인증 사용자 정보를 읽어들이고 처리하는 서비스 인스턴스 반환
+     */
     @Bean
     public OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService(UserAccountService userAccountService, PasswordEncoder passwordEncoder) {
         final DefaultOAuth2UserService delegate = new DefaultOAuth2UserService();

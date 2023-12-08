@@ -24,7 +24,7 @@ public record BoardPrincipal(
 
     public static BoardPrincipal of(String username, String password, String email, String nickname, String memo) {
         // 지금은 인증만 하고 권한을 다루고 있지 않아서 임의로 세팅한다.
-        return of(username, password, email, nickname, memo, Map.of());
+        return BoardPrincipal.of(username, password, email, nickname, memo, Map.of());
     }
 
     public static BoardPrincipal of(String username, String password, String email, String nickname, String memo, Map<String, Object> oAuth2Attributes) {
